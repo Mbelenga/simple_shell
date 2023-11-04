@@ -10,7 +10,10 @@
 #include <string.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <sys/stat.h>
 
+void interactive(void);
+void non_interactive(void);
 
 
 
