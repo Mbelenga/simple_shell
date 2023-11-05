@@ -1,4 +1,4 @@
-#include "shell.h"
+#include "main.h"
 
 /**
  * show_prompt - Displays the prompt for input to standard output.
