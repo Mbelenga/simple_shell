@@ -2,20 +2,22 @@
 
 /**
  * execute_command - Executes commands passed to the program
- * @command: 2nd parameter
+ * @input: 2nd parameter
  */
 
-void execute_command(char *command)
+void execute_command(char *input)
 {
-	pid_t pid = fork();
+	int status;
+	char *args[2];
 
-	for (i = 0; i < 10; i++)
+	args[0] = input;
+	args[1] = NULL;
+
+	pid_t pid = fork();
 
 	if (pid == 0)
 
 	{
-		char *args[] = {input, NULL};
-
 		execve(input, args, environ);
 		perror("execve error");
 		exit(1);
@@ -26,13 +28,10 @@ void execute_command(char *command)
 	}
 	else
 	{
-		int status;
-
-		waitpid(pid, &pid, &status, 0);
+		waitpid(pid, &status, 0);
 	}
 	if (WIFEXITED(status))
 	{
 		printf("pid exited normally with %d\n", WEXITSTATUS(status));
 	}
-	return (0);
 }

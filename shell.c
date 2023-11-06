@@ -1,4 +1,4 @@
-#include "shell.h"
+#include "main.h"
 
 /**
  * main - entry point
@@ -33,7 +33,7 @@ char *read_input(void)
 {
 	char *input = NULL;
 	size_t input_size = 0;
-	ssize_t input_length;
+	ssize_t getline_output;
 	size_t len;
 
 	getline_output = getline(&input, &input_size, stdin);
