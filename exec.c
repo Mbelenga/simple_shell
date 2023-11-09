@@ -20,7 +20,7 @@ void execute_command(char *input)
 
 	{
 		execve(input, args, environ);
-		perror("execve error");
+		perror("Error");
 		exit(1);
 	}
 	else if (pid < 0)
@@ -29,10 +29,11 @@ void execute_command(char *input)
 	}
 	else
 	{
-		waitpid(pid, &status, 0);
-	}
-	if (WIFEXITED(status))
-	{
-		printf("pid exited normally with %d\n", WEXITSTATUS(status));
+		if (!isatty(fileno(stdin)))
+		{
+		}
+		{
+			waitpid(pid, &status, 0);
+		}
 	}
 }
