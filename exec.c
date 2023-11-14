@@ -15,22 +15,21 @@ void show_prompt()
  * @input: command to be executed
  */
 
+size_t tokenize_input(char *input, char *tokens[]);
+
 void execute_command(char *input)
 {
 	pid_t pid;
 	int status;
 
-	char *args[2];
+	char *args[MAX_ARGS];
 
-	args[0] = input;
-	args[1] = NULL;
-
+	tokenize_input(input, args);
 	pid = fork();
-
+	
 	if (pid == 0)
-
 	{
-		if (execve(input, args, NULL) == -1)
+		if (execve(args[0], args, NULL) == -1)
 		{
 			perror("./hsh");
 			_exit(EXIT_FAILURE);

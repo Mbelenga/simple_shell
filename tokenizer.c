@@ -6,7 +6,7 @@
  * @tokens: 2nd argument
  */
 
-void tokenize_input(char *input, char *tokens[])
+size_t tokenize_input(char *input, char *tokens[])
 {
 	int num_tokens = 0;
 	char *token = strtok(input, " ");
@@ -17,4 +17,6 @@ void tokenize_input(char *input, char *tokens[])
 		token = strtok(NULL, " ");
 	}
 	tokens[num_tokens] = NULL;
+
+	return (num_tokens);
 }

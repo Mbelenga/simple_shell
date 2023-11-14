@@ -17,10 +17,11 @@
 
 #define MAX_INPUT_SIZE 1024
 #define DELIM
+#define MAX_ARGS 10
 
 extern char **environ;
 
-void tokenize_input(char *input, char *tokens[]);
+size_t tokenize_input(char *input, char *tokens[]);
 void show_prompt(void);
 char *read_input(void);
 int main(void);
