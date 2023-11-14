@@ -14,6 +14,7 @@ int main(void)
 	{
 		show_prompt();
 		command = read_input();
+
 		if (command == NULL)
 		{
 			break;
@@ -23,6 +24,7 @@ int main(void)
 	}
 	return (0);
 }
+
 
 /**
  * read_input - Reads a line from stdin
@@ -41,7 +43,15 @@ char *read_input(void)
 	if (getline_output == -1)
 	{
 		free(input);
-		return (NULL);
+		if (feof(stdin))
+		{
+			return (NULL);
+		}
+		else
+		{
+			perror("getline");
+			exit(EXIT_FAILURE);
+		}
 	}
 
 	len = strlen(input);

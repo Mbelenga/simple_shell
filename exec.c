@@ -1,27 +1,40 @@
 #include "main.h"
 
 /**
+ * show_prompt - displays prompt
+ */
+
+void show_prompt()
+{
+	printf("$ ");
+	fflush(stdout);
+}
+
+/**
  * execute_command - Executes commands passed to the program
- * @input: 2nd parameter
+ * @input: command to be executed
  */
 
 void execute_command(char *input)
 {
+	pid_t pid;
 	int status;
-
-	pid_t pid = fork();
 
 	char *args[2];
 
 	args[0] = input;
 	args[1] = NULL;
 
+	pid = fork();
+
 	if (pid == 0)
 
 	{
-		execve(input, args, environ);
-		perror("Error");
-		exit(1);
+		if (execve(input, args, NULL) == -1)
+		{
+			perror("./hsh");
+			_exit(EXIT_FAILURE);
+		}
 	}
 	else if (pid < 0)
 	{
@@ -29,11 +42,11 @@ void execute_command(char *input)
 	}
 	else
 	{
-		if (!isatty(fileno(stdin)))
-		{
-		}
-		{
-			waitpid(pid, &status, 0);
-		}
+		waitpid(pid, &status, 0);
+
+		if (WIFEXITED(status))
+			errno = WEXITSTATUS(status);
+		else if (WIFSIGNALED(status))
+			errno = 128 + WTERMSIG(status);
 	}
 }

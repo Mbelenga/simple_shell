@@ -12,6 +12,7 @@
 #include <sys/wait.h>
 #include <sys/stat.h>
 #include <stdarg.h>
+#include <errno.h>
 
 
 #define MAX_INPUT_SIZE 1024
@@ -19,13 +20,12 @@
 
 extern char **environ;
 
-void interactive(void);
-void non_interactive(void);
+void tokenize_input(char *input, char *tokens[]);
 void show_prompt(void);
 char *read_input(void);
 int main(void);
 void execute_command(char *command);
-
+int if_command_path(char *command);
 
 
 
