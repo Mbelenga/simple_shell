@@ -7,10 +7,10 @@
  * Return: number of tokens
  */
 
-size_t tokenize_input(char *command, char *tokens[])
+size_t tokenize_input(char *input, char *tokens[])
 {
 	int num_tokens = 0;
-	char *token = strtok(command, " ");
+	char *token = strtok(input, " ");
 	while (token != NULL)
 	{
 		tokens[num_tokens] = token;
