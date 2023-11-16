@@ -25,12 +25,12 @@ int main(void)
 
 		i = 0;
 
-		token = strtok(input, "\n ");
+		token = strtok(input, "\n\t\r ");
 
 		while (token != NULL)
 		{
 			args[i] = token;
-			token = strtok(NULL, "\n ");
+			token = strtok(NULL, "\n\t\r ");
 			i++;
 		}
 		args[i] = NULL;
