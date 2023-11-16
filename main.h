@@ -2,8 +2,6 @@
 #define MAIN_H
 
 
-
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -16,7 +14,6 @@
 
 
 #define MAX_INPUT 1024
-#define DELIM " \t\n"
 
 extern char **environ;
 

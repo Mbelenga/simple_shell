@@ -33,7 +33,11 @@ int execute_command(char **args)
 		}
 		if (pid == 0)
 		{
-			execve(args[0], args, NULL);
+			if (execve(args[0], args, environ) == -1)
+			{
+				perror("execve");
+				exit(1);
+			}
 		}
 		else
 		{

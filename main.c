@@ -25,15 +25,21 @@ int main(void)
 
 		i = 0;
 
-		token = strtok(input, "\n\t\r ");
+		token = strtok(input, " \n\t\r");
 
 		while (token != NULL)
 		{
 			args[i] = token;
-			token = strtok(NULL, "\n\t\r ");
+			token = strtok(NULL, " \n\t\r");
 			i++;
 		}
 		args[i] = NULL;
+
+		if (args[0] == NULL)
+		{
+			show_prompt();
+			continue;
+		}
 
 		if (strcmp(args[0], "exit") == 0)
 		{
