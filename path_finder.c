@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * command_path - checks if the command exists
+ * if_command_path - checks if the command exists
  * @command: command being checked
  * Return: command type
  */
@@ -17,6 +17,7 @@ int if_command_path(char *command)
 	while (dir != NULL)
 	{
 		char command_path[MAX_INPUT];
+
 		snprintf(command_path, sizeof(command_path), "%s/%s", dir, command);
 
 		if (access(command_path, X_OK) == 0)

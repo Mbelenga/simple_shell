@@ -15,6 +15,7 @@ void show_prompt(void)
 /**
  * execute_command - Executes commands passed to the program
  * @args: command to be executed
+ * Return: 1 (success) otherwise return 0(fail)
  */
 
 int execute_command(char **args)
@@ -28,7 +29,7 @@ int execute_command(char **args)
 		if (pid == -1)
 		{
 			perror("./hsh");
-			return(1);
+			return (1);
 		}
 		if (pid == 0)
 		{

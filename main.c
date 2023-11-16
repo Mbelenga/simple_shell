@@ -7,23 +7,22 @@
 
 int main(void)
 {
-	ssize_t getline_output;
 	char *token;
 	char *args[MAX_INPUT];
 	int i = 0;
 	char *input = NULL;
 	size_t input_size = 0;
 
-	while (1)
-	{
-		show_prompt();
-		getline_output = getline(&input, &input_size, stdin);
+	show_prompt();
 
-		if (getline_output == -1)
+	while (getline(&input, &input_size, stdin) != -1)
+	{
+		if (*input == '\n')
 		{
-			perror("getline");
-			exit(EXIT_FAILURE);
+			show_prompt();
+			continue;
 		}
+
 		i = 0;
 
 		token = strtok(input, "\n ");
@@ -45,6 +44,7 @@ int main(void)
 		{
 			execute_command(args);
 		}
+		show_prompt();
 	}
 	return (0);
 }
