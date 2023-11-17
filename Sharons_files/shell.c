@@ -9,7 +9,6 @@ char *read_input(void)
 {
 	char *input = NULL;
 	size_t input_size = 0;
-
 	ssize_t getline_output;
 	size_t len;
 

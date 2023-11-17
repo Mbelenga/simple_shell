@@ -3,33 +3,51 @@
 /**
  * if_command_path - checks if the command exists
  * @command: command being checked
- * Return: command type
+ * Return: NULL
  */
 
-int if_command_path(char *command)
+char *if_command_path(char *command)
 {
-	char *path = getenv("PATH");
-	char *path_copy = strdup(path);
-	char *dir = strtok(path_copy, ":");
-
-	int command_found = 0;
-
-	while (dir != NULL)
+	if (strchr(command, '/') != NULL)
 	{
-		char command_path[MAX_INPUT];
-
-		snprintf(command_path, sizeof(command_path), "%s/%s", dir, command);
-
-		if (access(command_path, X_OK) == 0)
+		char *direct_path = strdup(command);
+		if (access(direct_path, X_OK) == 0)
 		{
-			command_found = -1;
-			break;
+			return (direct_path);
 		}
-
-		dir = strtok(NULL, ":");
+		free(direct_path);
 	}
+	else
+	{
+		char *path = getenv("PATH");
+		char *path_copy = strdup(path);
+		char *dir = strtok(path_copy, ":");
 
-	free(path_copy);
+		while (dir != NULL)
+		{
+			size_t len = strlen(dir) + 1 + strlen(command) + 1;
+			char *command_path = malloc(len);
 
-	return (command_found);
+			if (command_path == NULL)
+			{
+				perror("malloc");
+				exit(EXIT_FAILURE);
+			}
+
+			strcpy(command_path, dir);
+			strcat(command_path, "/");
+			strcat(command_path, command);
+
+			if (access(command_path, X_OK) == 0)
+			{
+				free(path_copy);
+				return (command_path);
+			}
+
+			free(command_path);
+			dir = strtok(NULL, ":");
+		}
+		free(path_copy);
+	}
+	return (NULL);
 }

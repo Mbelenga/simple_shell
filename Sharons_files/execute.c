@@ -23,32 +23,29 @@ int execute_command(char **args)
 	int status;
 	pid_t pid;
 
-	char *command_path = if_command_path(args[0]);
+	/*char *command_path = if_command_path(args[0]);*/
 
-	while (command_path != NULL)
+	if (access(args[0], X_OK) == 0)
 	{
 		pid = fork();
 		if (pid == -1)
 		{
-			perror("fork");
-			free(command_path);
+			perror("./hsh");
 			return (1);
 		}
 		if (pid == 0)
 		{
 			if (execve(args[0], args, environ) == -1)
 			{
-				perror("args");
-				fprintf(stderr, "Error executing %s\n", args[0]);
-				exit(EXIT_FAILURE);
+				perror("execve");
+				exit(1);
 			}
 		}
 		else
 		{
 			wait(&status);
+			return (0);
 		}
-		free(command_path);
-		return (0);
 	}
 	perror("./hsh");
 	return (1);
